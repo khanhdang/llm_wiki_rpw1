@@ -1,0 +1,72 @@
+# Schema for sources/<access>/.../<id>/manifest.yaml
+# Read by tools/validate_manifests.py. Unknown fields are an error.
+#
+# Field options:
+#   type:     string | list | int | date | any
+#   required: true if the field must be present and non-empty
+#   nullable: true if the field may be present with an empty value
+#   enum:     allowed values
+#   pattern:  regular expression the whole value must match
+#   items:    schema for each element of a list
+
+fields:
+  id:
+    type: string
+    required: true
+    pattern: '^[a-z0-9][a-z0-9._-]*$'
+    description: Equal to the manifest's folder name. Used in citations as [src:<id>].
+  type:
+    type: string
+    required: true
+    enum: [paper, code, media, thesis, report, meeting]
+  title:
+    type: string
+    required: true
+  authors:
+    type: list
+    required: true
+    items: {type: string}
+  date:
+    type: date
+    required: true
+    description: YYYY, YYYY-MM, or YYYY-MM-DD.
+  added_by:
+    type: string
+    required: true
+  tags:
+    type: list
+    required: true
+    items: {type: string}
+  access:
+    type: string
+    required: true
+    enum: [open, internal]
+    description: Must match the top-level folder under sources/.
+  files:
+    type: list
+    required: true
+    items:
+      type: mapping
+      fields:
+        path:
+          type: string
+          required: true
+          description: Relative to raw/, starting with the manifest's access folder.
+        sha256:
+          type: string
+          required: true
+          pattern: '^[0-9a-f]{64}$'
+        size:
+          type: int
+          required: true
+          minimum: 0
+  source_url:
+    type: string
+    nullable: true
+  doi:
+    type: string
+    nullable: true
+  derived:
+    type: any
+    nullable: true
+    description: Outputs derived from this source (e.g. extracted text). Free form.

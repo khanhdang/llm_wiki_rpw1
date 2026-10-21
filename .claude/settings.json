@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./raw/restricted/**)",
+      "Edit(./raw/**)",
+      "Write(./raw/**)",
+      "Read(./extracted/restricted/**)",
+      "Read(./sources/restricted/**)"
+    ]
+  }
+}
