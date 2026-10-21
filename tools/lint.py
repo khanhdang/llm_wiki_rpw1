@@ -109,7 +109,9 @@ def main():
         return 2
 
     known_ids = wikipaths.manifest_ids(root, wikipaths.ACCESS_ROOTS)
-    pages = sorted(p for p in wiki.rglob("*.md") if not p.is_symlink())
+    # Skip macOS AppleDouble files (._name.md) that non-Mac volumes create.
+    pages = sorted(p for p in wiki.rglob("*.md")
+                   if not p.is_symlink() and not p.name.startswith("._"))
 
     stems = defaultdict(list)
     for p in pages:
