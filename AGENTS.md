@@ -130,6 +130,21 @@ Then a 2 to 4 sentence summary, the body, and a `## Related` section of
   line, the contribution, the method, results with numbers, limitations, and
   links to the related concept and method pages. Talks and other media use the
   same layout.
+- Directly under the bibliographic line, every paper page has a `Files:` line
+  of relative markdown links to the source's manifest, its extracted text, and
+  each raw file listed under `files:` in the manifest, so a reader can find the
+  originals from the page:
+
+  ```markdown
+  Files: [manifest](../../sources/open/papers/2024/smith2024-spike-timing-attacks/manifest.yaml)
+  · [extracted text](../../extracted/open/smith2024-spike-timing-attacks.md)
+  · [paper.pdf](../../raw/open/papers/2024/smith2024-spike-timing-attacks/paper.pdf)
+  ```
+
+  Take every path from the manifest (`files[].path` is relative to `raw/`,
+  `derived.extracted` to the wiki root). Never list or search `raw/` to find
+  file names, and never link to anything under `restricted/`. If a manifest
+  path changes, update the links.
 - Pages about people cover published work only.
 - Write in English. Keep original-language technical terms in parentheses where
   useful.
