@@ -1,5 +1,3 @@
-# Agent Run Log
+# LLM Wiki Log
 
-## Log Entries
-
-<!-- Log entries will be appended here -->
+<!-- Log entries follow the format: YYYY-MM-DD | <source-id, lint, or question> | <tool>/<model> | created: <pages> | updated: <pages> -->
