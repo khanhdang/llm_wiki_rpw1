@@ -15,6 +15,7 @@ llm-wiki/
 ├── CONTRIBUTING.md         # how people set up, add sources, and review
 ├── .claude/settings.json   # permission rules (do not loosen)
 ├── raw/                    # original files; read-only for you
+│   │                       #   <access>/<category>/<source-id>/<file>, no year folder
 │   ├── open/
 │   ├── internal/
 │   └── restricted/         # never read
@@ -122,9 +123,9 @@ Then a 2 to 4 sentence summary, the body, and a `## Related` section of
   each raw file listed under `files:` in the manifest:
 
   ```markdown
-  Files: [manifest](../../sources/open/papers/2024/smith2024-spike-timing-attacks/manifest.yaml)
+  Files: [manifest](../../sources/open/papers/smith2024-spike-timing-attacks/manifest.yaml)
   · [extracted text](../../extracted/open/smith2024-spike-timing-attacks.md)
-  · [paper.pdf](../../raw/open/papers/2024/smith2024-spike-timing-attacks/paper.pdf)
+  · [paper.pdf](../../raw/open/papers/smith2024-spike-timing-attacks/paper.pdf)
   ```
 
   Take every path from the manifest (`files[].path` is relative to `raw/`,

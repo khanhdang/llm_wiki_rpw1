@@ -5,8 +5,8 @@ Walks raw/open/ and, with --include-internal (after group-lead approval),
 raw/internal/. Never lists raw/ itself and never enters raw/restricted/.
 Symlinked folders and files are reported and never followed or opened.
 
-Expected layout: raw/<access>/<category>/.../<source-id>/<file>.pdf, where the
-folder holding the PDF is named after the source id. A PDF whose folder is not
+Expected layout: raw/<access>/<category>/<source-id>/<file>.pdf (no year
+folder), where the folder holding the PDF is named after the source id. A PDF whose folder is not
 a valid id, or is a category or year folder, is reported; move it into its own
 folder (this script never writes to raw/).
 

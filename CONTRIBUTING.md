@@ -38,10 +38,11 @@ Claude never writes to `raw/`, so adding sources is a person's job.
 
 1. Pick an id: lowercase, no spaces, unique, for example
    `smith2024-spike-timing-attacks`.
-2. Put the file in a folder named after the id, under the right access level:
-   `raw/open/papers/2024/smith2024-spike-timing-attacks/paper.pdf`.
+2. Put the file in a folder named after the id, directly under the access
+   level and category (no year folder):
+   `raw/open/papers/smith2024-spike-timing-attacks/paper.pdf`.
 3. Write the manifest at the same path under `sources/`:
-   `sources/open/papers/2024/smith2024-spike-timing-attacks/manifest.yaml`.
+   `sources/open/papers/smith2024-spike-timing-attacks/manifest.yaml`.
 
    ```yaml
    id: smith2024-spike-timing-attacks
@@ -53,7 +54,7 @@ Claude never writes to `raw/`, so adding sources is a person's job.
    tags: [snn, security]
    access: open           # must match the top folder
    files:
-     - path: open/papers/2024/smith2024-spike-timing-attacks/paper.pdf
+     - path: open/papers/smith2024-spike-timing-attacks/paper.pdf
        sha256: <output of: shasum -a 256 paper.pdf>
        size: 482113        # bytes
    source_url: https://example.org/paper
