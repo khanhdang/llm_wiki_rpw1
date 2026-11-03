@@ -1,0 +1,25 @@
+id: arxiv_1512.03385
+type: paper
+title: Deep Residual Learning for Image Recognition
+authors:
+- Kaiming He
+- Xiangyu Zhang
+- Shaoqing Ren
+- Jian Sun
+date: 2015-12
+added_by: khanhdang
+tags:
+- computer-vision
+- cnn
+- image-classification
+- architecture
+- residual-learning
+access: open
+files:
+- path: open/papers/arxiv_1512.03385/2015_He_ResNet.pdf
+  sha256: 1e0651b6810ecba34a3dbc5b5b0209226f889004607c1f203540a48d64e5a93a
+  size: 819383
+source_url: null
+doi: null
+derived:
+  extracted: extracted/open/arxiv_1512.03385.md

@@ -1,0 +1,33 @@
+id: arxiv_1409.0575
+type: paper
+title: ImageNet Large Scale Visual Recognition Challenge
+authors:
+- Olga Russakovsky
+- Jia Deng
+- Hao Su
+- Jonathan Krause
+- Sanjeev Satheesh
+- Sean Ma
+- Zhiheng Huang
+- Andrej Karpathy
+- Aditya Khosla
+- Michael Bernstein
+- Alexander C. Berg
+- Li Fei-Fei
+date: 2014-09
+added_by: khanhdang
+tags:
+- computer-vision
+- dataset
+- benchmark
+- image-classification
+- object-detection
+access: open
+files:
+- path: open/papers/arxiv_1409.0575/2014_Russakovsky_ImageNet.pdf
+  sha256: b8643541df1b287cdb35bc70741fa7c330c3be517e48f6b20eba7e995ddc8199
+  size: 8479445
+source_url: null
+doi: null
+derived:
+  extracted: extracted/open/arxiv_1409.0575.md

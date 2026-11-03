@@ -1,3 +1,15 @@
 # LLM Wiki Log
 
 <!-- Log entries follow the format: YYYY-MM-DD | <source-id, lint, review, or question> | <tool>/<model> | created: <pages> | updated: <pages> -->
+2026-11-03 | arxiv_1409.0575 | claude-code/claude-opus-5-5 | created: arxiv-1409-0575 | updated: convolutional-neural-network, imagenet-benchmark
+2026-11-03 | arxiv_1409.1556 | claude-code/claude-opus-5-5 | created: arxiv-1409-1556 | updated: convolutional-neural-network, imagenet-benchmark, network-depth, efficient-cnn-scaling
+2026-11-03 | arxiv_1409.4842 | claude-code/claude-opus-5-5 | created: arxiv-1409-4842, inception-module | updated: convolutional-neural-network, imagenet-benchmark, network-depth, efficient-cnn-scaling
+2026-11-03 | arxiv_1512.03385 | claude-code/claude-opus-5-5 | created: arxiv-1512-03385, residual-learning, batch-normalization | updated: convolutional-neural-network, imagenet-benchmark, network-depth, efficient-cnn-scaling
+2026-11-03 | arxiv_1608.06993 | claude-code/claude-opus-5-5 | created: arxiv-1608-06993, dense-connectivity | updated: convolutional-neural-network, imagenet-benchmark, network-depth, residual-learning, batch-normalization, efficient-cnn-scaling
+2026-11-03 | arxiv_1704.04861 | claude-code/claude-opus-5-5 | created: arxiv-1704-04861, depthwise-separable-convolution | updated: convolutional-neural-network, imagenet-benchmark, efficient-cnn-scaling, compound-scaling, batch-normalization
+2026-11-03 | arxiv_1905.11946 | claude-code/claude-opus-5-5 | created: arxiv-1905-11946, compound-scaling | updated: convolutional-neural-network, imagenet-benchmark, network-depth, efficient-cnn-scaling, depthwise-separable-convolution
+2026-11-03 | arxiv_2004.02806 | claude-code/claude-opus-5-5 | created: arxiv-2004-02806 | updated: convolutional-neural-network, residual-learning, inception-module, depthwise-separable-convolution, efficient-cnn-scaling, batch-normalization
+2026-11-03 | arxiv_2010.11929 | claude-code/claude-opus-5-5 | created: arxiv-2010-11929, vision-transformer, self-attention, inductive-bias-in-vision-models | updated: convolutional-neural-network, imagenet-benchmark, residual-learning, batch-normalization
+2026-11-03 | arxiv_2103.14030 | claude-code/claude-opus-5-5 | created: arxiv-2103-14030, shifted-window-attention | updated: arxiv-2010-11929, convolutional-neural-network, imagenet-benchmark, vision-transformer, self-attention, inductive-bias-in-vision-models, residual-learning
+2026-11-03 | arxiv_2201.03545 | claude-code/claude-opus-5-5 | created: arxiv-2201-03545 | updated: arxiv-2103-14030, arxiv-2010-11929, arxiv-1512-03385, arxiv-1704-04861, arxiv-1905-11946, convolutional-neural-network, inductive-bias-in-vision-models, depthwise-separable-convolution, batch-normalization, residual-learning, vision-transformer, shifted-window-attention, imagenet-benchmark
+2026-11-03 | doi_10.1109_5.726791 | claude-code/claude-opus-5-5 | created: doi-10-1109-5-726791 | updated: convolutional-neural-network, arxiv-2004-02806, arxiv-1608-06993, arxiv-1409-4842, arxiv-1409-1556, network-depth

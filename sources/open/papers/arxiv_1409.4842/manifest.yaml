@@ -1,0 +1,30 @@
+id: arxiv_1409.4842
+type: paper
+title: Going deeper with convolutions
+authors:
+- Christian Szegedy
+- Wei Liu
+- Yangqing Jia
+- Pierre Sermanet
+- Scott Reed
+- Dragomir Anguelov
+- Dumitru Erhan
+- Vincent Vanhoucke
+- Andrew Rabinovich
+date: 2014-09
+added_by: khanhdang
+tags:
+- computer-vision
+- cnn
+- image-classification
+- object-detection
+- architecture
+access: open
+files:
+- path: open/papers/arxiv_1409.4842/2014_Szegedy_GoogLeNet.pdf
+  sha256: ba83bd105ffa669ccb2aa240d3176b8cb1c98355257ddee8e64aa486d5ade92a
+  size: 1214160
+source_url: null
+doi: null
+derived:
+  extracted: extracted/open/arxiv_1409.4842.md

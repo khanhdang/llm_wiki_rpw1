@@ -1,0 +1,24 @@
+id: arxiv_1608.06993
+type: paper
+title: Densely Connected Convolutional Networks
+authors:
+- Gao Huang
+- Zhuang Liu
+- Laurens van der Maaten
+- Kilian Q. Weinberger
+date: 2016-08
+added_by: khanhdang
+tags:
+- computer-vision
+- cnn
+- image-classification
+- architecture
+access: open
+files:
+- path: open/papers/arxiv_1608.06993/2016_Huang_DenseNet.pdf
+  sha256: b55aa1adbdf07f731daa84b94d23103d1eb22d1821a556b80212debee69b096d
+  size: 1142400
+source_url: null
+doi: null
+derived:
+  extracted: extracted/open/arxiv_1608.06993.md

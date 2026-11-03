@@ -13,8 +13,12 @@ already be on this machine. A person downloads them once with
 
 Refuses to overwrite an existing extracted file unless --force is given.
 
+--force-ocr ignores the PDF's text layer and OCRs every page with RapidOCR.
+Use it when the text layer is unusable (e.g. a broken font encoding that
+extracts as symbols). The OCR models must also already be on this machine.
+
 Usage:
-  python tools/extract_pdf.py <source-id> [--include-internal] [--force]
+  python tools/extract_pdf.py <source-id> [--include-internal] [--force] [--force-ocr]
 """
 
 import argparse
@@ -43,6 +47,8 @@ def main():
     ap.add_argument("--include-internal", action="store_true",
                     help="allow sources/internal/ (only after group-lead approval)")
     ap.add_argument("--force", action="store_true", help="overwrite an existing extracted file")
+    ap.add_argument("--force-ocr", action="store_true",
+                    help="OCR every page instead of using the PDF text layer")
     args = ap.parse_args()
 
     allowed = wikipaths.allowed_roots(args.include_internal)
@@ -91,7 +97,15 @@ def main():
         print("docling is not installed: pip install docling", file=sys.stderr)
         return 1
 
-    converter = DocumentConverter()
+    if args.force_ocr:
+        from docling.datamodel.base_models import InputFormat
+        from docling.datamodel.pipeline_options import PdfPipelineOptions, RapidOcrOptions
+        from docling.document_converter import PdfFormatOption
+
+        opts = PdfPipelineOptions(do_ocr=True, ocr_options=RapidOcrOptions(force_full_page_ocr=True))
+        converter = DocumentConverter(format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=opts)})
+    else:
+        converter = DocumentConverter()
     parts = [f"<!-- source: {args.source_id} | extracted with docling -->\n"]
     empty = []
     for rel in pdfs:

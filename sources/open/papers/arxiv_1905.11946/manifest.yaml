@@ -1,0 +1,23 @@
+id: arxiv_1905.11946
+type: paper
+title: 'EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks'
+authors:
+- Mingxing Tan
+- Quoc V. Le
+date: '2019'
+added_by: khanhdang
+tags:
+- computer-vision
+- cnn
+- efficient-models
+- model-scaling
+- neural-architecture-search
+access: open
+files:
+- path: open/papers/arxiv_1905.11946/2019_Tan_EfficientNet.pdf
+  sha256: af6b1bd620f81bfaea81edf8227484588e1fcc2427d6b5020fa17454d7566c70
+  size: 933600
+source_url: null
+doi: null
+derived:
+  extracted: extracted/open/arxiv_1905.11946.md

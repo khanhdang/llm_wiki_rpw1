@@ -1,0 +1,25 @@
+id: doi_10.1109_5.726791
+type: paper
+title: Gradient-Based Learning Applied to Document Recognition
+authors:
+- Yann LeCun
+- Léon Bottou
+- Yoshua Bengio
+- Patrick Haffner
+date: '1998'
+added_by: khanhdang
+tags:
+- computer-vision
+- cnn
+- handwriting-recognition
+- document-recognition
+- mnist
+access: open
+files:
+- path: open/papers/doi_10.1109_5.726791/1998_LeCun_LeNet.pdf
+  sha256: 948f557fd56bcd276ca7b74feaab1b18108319c13f9818083bebd3bfe2fd7bf4
+  size: 955058
+source_url: null
+doi: null
+derived:
+  extracted: extracted/open/doi_10.1109_5.726791.md

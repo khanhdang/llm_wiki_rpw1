@@ -1,0 +1,33 @@
+id: arxiv_2010.11929
+type: paper
+title: 'An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale'
+authors:
+- Alexey Dosovitskiy
+- Lucas Beyer
+- Alexander Kolesnikov
+- Dirk Weissenborn
+- Xiaohua Zhai
+- Thomas Unterthiner
+- Mostafa Dehghani
+- Matthias Minderer
+- Georg Heigold
+- Sylvain Gelly
+- Jakob Uszkoreit
+- Neil Houlsby
+date: 2020-10
+added_by: khanhdang
+tags:
+- computer-vision
+- transformer
+- image-classification
+- architecture
+- pre-training
+access: open
+files:
+- path: open/papers/arxiv_2010.11929/2020_Dosovitskiy_ViT.pdf
+  sha256: 8ce7b83971a14508ca711a27c875c9b6914c4f6767cf3150fb1ca6c07aa056d6
+  size: 3743814
+source_url: null
+doi: null
+derived:
+  extracted: extracted/open/arxiv_2010.11929.md

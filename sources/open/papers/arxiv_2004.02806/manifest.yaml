@@ -1,0 +1,23 @@
+id: arxiv_2004.02806
+type: paper
+title: 'A Survey of Convolutional Neural Networks: Analysis, Applications, and Prospects'
+authors:
+- Zewen Li
+- Wenjie Yang
+- Shouheng Peng
+- Fan Liu
+date: 2020-04
+added_by: khanhdang
+tags:
+- computer-vision
+- cnn
+- survey
+access: open
+files:
+- path: open/papers/arxiv_2004.02806/2020_Li_CNN-survey.pdf
+  sha256: 38ac55aee711d0fc7966be3fed2f9d7355b46accddb5ce699db36d239493871c
+  size: 3878364
+source_url: null
+doi: null
+derived:
+  extracted: extracted/open/arxiv_2004.02806.md

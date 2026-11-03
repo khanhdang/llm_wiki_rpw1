@@ -1,0 +1,30 @@
+id: arxiv_2103.14030
+type: paper
+title: 'Swin Transformer: Hierarchical Vision Transformer using Shifted Windows'
+authors:
+- Ze Liu
+- Yutong Lin
+- Yue Cao
+- Han Hu
+- Yixuan Wei
+- Zheng Zhang
+- Stephen Lin
+- Baining Guo
+date: 2021-03
+added_by: khanhdang
+tags:
+- computer-vision
+- transformer
+- image-classification
+- object-detection
+- semantic-segmentation
+- architecture
+access: open
+files:
+- path: open/papers/arxiv_2103.14030/2021_Liu_Swin.pdf
+  sha256: dfdc7631fe2a35bb5892080b9c0eeadc4432d55cf1856f84bc88802efa877a7c
+  size: 1360315
+source_url: null
+doi: null
+derived:
+  extracted: extracted/open/arxiv_2103.14030.md
