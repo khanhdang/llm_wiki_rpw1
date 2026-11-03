@@ -49,7 +49,12 @@
       "git status*": "allow",
       "git diff*": "allow",
       "git log*": "allow",
-      "*restricted*": "deny"
+      "mkdir extracted/*": "allow",
+      "mkdir sources/*": "allow",
+      "mkdir -p extracted/*": "allow",
+      "mkdir -p sources/*": "allow",
+      "*restricted*": "deny",
+      "rm *": "deny"
     },
     "external_directory": "deny",
     "webfetch": "deny",

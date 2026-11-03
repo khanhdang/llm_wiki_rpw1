@@ -1,18 +1,22 @@
-# Wiki index
-
-Every page in the wiki, by type. Agents add each new page here as
-`- [[file-name]]: one-line description`.
+# LLM Wiki Index
 
 ## Concepts
+- [[concept-page]]: description...
 
 ## Methods
+- [[method-page]]: description...
 
 ## Hardware
+- [[hardware-page]]: description...
 
 ## Papers
+- [[paper-page]]: description...
 
 ## Projects
+- [[project-page]]: description...
 
 ## People
+- [[person-page]]: description...
 
 ## Questions
+- [[question-page]]: description...
