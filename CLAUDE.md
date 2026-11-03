@@ -35,7 +35,7 @@ llm-wiki/
     ├── check_raw.sh        # checks raw/ before you touch it
     ├── scan_raw.py         # finds PDFs in raw/open/ with no manifest; drafts one
     ├── validate_manifests.py
-    ├── extract_pdf.py      # pypdf: PDF -> extracted/<access>/<id>.md
+    ├── extract_pdf.py      # docling: PDF -> extracted/<access>/<id>.md
     └── lint.py             # run after every change to wiki/
 ```
 
@@ -156,7 +156,7 @@ page, as asked (see [Review](#review)).
 
 ### Extract
 
-Extract PDFs with pypdf, only through `tools/extract_pdf.py`:
+Extract PDFs with docling, only through `tools/extract_pdf.py`:
 
 ```bash
 python tools/extract_pdf.py <source-id>            # add --include-internal only if approved
@@ -165,11 +165,12 @@ python tools/extract_pdf.py <source-id>            # add --include-internal only
 - The source needs a manifest first; the script finds the PDFs from its
   `files:` list, never by listing `raw/`. It runs `tools/check_raw.sh` itself.
 - It writes `extracted/<access>/<id>.md` with a `<!-- p.N -->` marker per page,
-  where N is the page of the PDF file. Do not call pypdf yourself or
+  where N is the page of the PDF file. Do not run `docling` directly or
   hand-write page markers.
-- If pypdf is not installed, stop and say so; never install it yourself.
-- pypdf reads only the text layer. If the script reports pages with no text
-  (likely a scanned PDF), list them in your report.
+- Docling runs offline. If it fails because models are missing, stop and ask
+  the person to run `docling-tools models download`; never download them
+  yourself. If docling is not installed, stop and say so.
+- If the script reports pages with no text, list them in your report.
 - Never overwrite an existing extracted file (`--force`) unless the person
   asks; someone may have corrected it by hand.
 - After extracting, spot-check a few pages against the PDF for garbled tables
