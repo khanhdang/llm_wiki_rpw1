@@ -1,7 +1,7 @@
 # Contributing
 
-You can work on the wiki with any AI agent, or by hand. Every agent follows the
-same rules in [AGENTS.md](AGENTS.md), and a person reviews every page an agent
+All wiki work goes through [Claude Code](https://claude.com/claude-code). It
+follows the rules in [CLAUDE.md](CLAUDE.md), and a person reviews every page it
 writes.
 
 ## 1. Set up once
@@ -12,102 +12,28 @@ pip install pyyaml
 ./tools/check_raw.sh
 ```
 
+Install Claude Code and run `claude` from this folder; it loads `CLAUDE.md` and
+the permission rules in `.claude/settings.json` automatically. Don't loosen
+those rules.
+
 Put `internal/` material in `raw/internal/` only if the group lead gave it to
-you, and don't share it further. Never put `restricted/` material on a machine
-where you run a cloud agent.
+you, and don't share it further. Tell Claude when the group lead has approved
+reading it. Never put `restricted/` material on a machine where you run Claude
+Code.
 
-## 2. Pick an agent
+## 2. Day to day
 
-Any agent works. What matters is whether it can open this folder.
-
-| Kind of agent | Examples | How it gets the rules |
-|---------------|----------|-----------------------|
-| Coding agent with file access | Claude Code, Codex CLI, OpenCode, Gemini CLI, Cursor, Aider, GitHub Copilot | Reads `AGENTS.md` itself. Claude Code reads it through `CLAUDE.md`, Gemini CLI through `GEMINI.md`. If your tool reads neither, tell it: "Read AGENTS.md and follow it." |
-| Chat assistant without file access | ChatGPT, Claude, or Gemini projects; local chat apps | You upload files and save its answers. Follow [chat-agent-instructions.md](chat-agent-instructions.md). |
-| Local model | Any model served through an OpenAI-compatible API (vLLM, llama.cpp, Ollama, LM Studio) | Use it through a coding agent that supports custom endpoints (OpenCode, Aider, and others), or through a local chat app. |
-
-Data rules apply whichever you pick: cloud models may read `open/`, and
-`internal/` only with the group lead's approval. Only local models may process
-`restricted/`, and even they only outside this workflow. Permission settings
-(such as `.claude/settings.json`) exist only for some tools. With any other tool,
-the safe option is to keep material it must not read off the machine.
-
-### Example: a local model in OpenCode
-
-Add an OpenAI-compatible provider to `opencode.local.json` or your global
-OpenCode config, then run `opencode` in the wiki folder. Field names can change
-between versions, so check the OpenCode docs.
-
-```json
-{
-  "$schema": "https://opencode.ai/config.json",
-  "provider": {
-    "local": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Local model server",
-      "options": { "baseURL": "http://<model-server-host>:8000/v1" },
-      "models": { "<served-model-name>": { "name": "Local model" } }
-    }
-  }
-}
-```
-
-Smaller models follow long instructions less reliably. Give them one or two
-sources per run and review their pages more carefully.
-
-### Example: oMLX on a Mac
-
-[oMLX](https://github.com/jundot/omlx) serves MLX models on Apple Silicon
-through an OpenAI-compatible API at `http://127.0.0.1:8000/v1`. Start it with
-`omlx start` (or the menu-bar app) and download a model from its dashboard.
-
-To maintain the wiki (ingest, lint), run OpenCode from this folder. The
-committed [opencode.json](opencode.json) sets the default model and permission
-rules that mirror the data-access rules (no `restricted/`, no writes to `raw/`,
-`internal/` and manifest edits ask first). The `omlx` provider and its API key
-live in your global config, which `omlx launch` writes for you:
-
-```bash
-omlx launch opencode --model <model-name>   # once, sets up ~/.config/opencode
-opencode                                    # then, from this folder
-```
-
-If you serve a different model, change `model` in `opencode.json` and add the
-model, with its real context limit, under `provider.omlx.models` in your global
-config.
-
-To ask questions, use the bundled chat tool. It sends the most relevant wiki
-pages and `extracted/open/` passages to the model and answers with citations:
-
-```bash
-python tools/chat.py                                  # interactive
-python tools/chat.py "What is STDP?" --show-context   # list passages sent
-python tools/chat.py "What is STDP?" --save stdp-basics   # keep as a draft page
-```
-
-It reads the API key from `OMLX_API_KEY`, or from `~/.omlx/settings.json` when
-the server is on localhost. Set `OMLX_BASE_URL` and `OMLX_MODEL` to use another
-server or model. `--save` writes `wiki/questions/<name>.md`, adds it to
-`wiki/index.md`, and appends a line to `wiki/log.md`; run `python tools/lint.py`
-afterwards.
-
-## 3. Day to day
-
-Ask your agent one of:
+Ask Claude one of:
 
 - `Ingest the new sources` (or `Ingest <source-id>, <source-id>`)
 - `Run lint and fix what you can`
 - `Answer: <question>` (add "and save it" to keep the answer as a page)
 
-Then check the result yourself:
+Claude runs `python tools/lint.py` itself and logs every run in `wiki/log.md`.
 
-```bash
-python tools/lint.py
-```
+## 3. Add a source
 
-## 4. Add a source
-
-Agents never write to `raw/`, so adding sources is a person's job.
+Claude never writes to `raw/`, so adding sources is a person's job.
 
 1. Pick an id: lowercase, no spaces, unique, for example
    `smith2024-spike-timing-attacks`.
@@ -135,29 +61,39 @@ Agents never write to `raw/`, so adding sources is a person's job.
    ```
 
    All fields are described in `tools/manifest_schema.yaml`. File paths are
-   relative to `raw/`.
+   relative to `raw/`. You can ask Claude to draft the manifest for an `open/`
+   file; check the hashes yourself.
 4. Put the plain text at `extracted/open/smith2024-spike-timing-attacks.md`.
-   Use any extraction tool or model you like, but mark where each page starts
-   with `<!-- p.4 -->` (or `<!-- 00:12:30 -->` for audio and video) so agents
-   can cite exact locations.
-5. Check it, then ask an agent to ingest it:
+   Use any extraction tool you like, but mark where each page starts with
+   `<!-- p.4 -->` (or `<!-- 00:12:30 -->` for audio and video) so Claude can
+   cite exact locations.
+5. Check it, then ask Claude to ingest it:
 
    ```bash
    python tools/validate_manifests.py --check-files
    ```
 
-## 5. Review
+## 4. Review
 
-- Agents write every new or changed page as `status: draft`, log every run in
-  `wiki/log.md`, and end with a report of what they changed.
-- Don't review pages your own agent wrote; ask another member.
-- Check that:
+Claude writes every new or changed page as `status: draft` and ends each run
+with a report of what it changed. Reviewing means reading those drafts and
+having Claude fix them.
+
+- Don't review pages from your own ingest; ask another member.
+- Open the draft, and check that:
   - citations point to real pages or timestamps in the source,
   - there are no duplicate pages,
-  - text people wrote is unchanged,
   - nothing comes from `restricted/`.
-- When a page checks out, set `status: reviewed`. Only people do this.
-- `wiki/log.md` shows which tool and model wrote what. If one keeps failing
-  review, tell the group lead.
-- Keep a backup of the whole folder with any backup or sync tool. There is no
-  other change history.
+- Tell Claude what to change, in plain words, for example:
+  - `In wiki/concepts/stdp.md, the 12 pJ figure is on p.6, fix the citation`
+  - `Merge stdp-learning into spike-timing-dependent-plasticity`
+  - `Rewrite the summary of wiki/papers/<id>.md to lead with the main result`
+
+  Claude makes the edit, checks it against the source, runs lint and logs a
+  `review` line. You can also edit pages by hand; Claude keeps your text.
+- When a page checks out, tell Claude `Mark <page> reviewed`, or set
+  `status: reviewed` yourself. Claude never does it unasked.
+- `wiki/log.md` shows which model wrote what. If drafts keep failing review,
+  tell the group lead.
+- Keep a backup of the whole folder with any backup or sync tool, or commit to
+  git.

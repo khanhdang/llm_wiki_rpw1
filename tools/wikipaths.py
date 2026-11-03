@@ -1,6 +1,6 @@
 """Path-safety helpers shared by the wiki tools.
 
-Rules (AGENTS.md):
+Rules (CLAUDE.md):
 - Select allowed access roots before reading anything. `open` is always allowed;
   `internal` only when the caller opts in after group-lead approval.
 - Never traverse or open anything under `restricted/`.
