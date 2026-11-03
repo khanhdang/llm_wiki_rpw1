@@ -60,6 +60,13 @@ Everything you read is sent to Anthropic.
 - Prefer `extracted/` to raw files. Open a raw file only to check a figure,
   table, or equation the extraction got wrong.
 - Refuse paths that are absolute, contain `..`, or go through a symlink.
+- Work only inside this project folder. Never read, write, or list files
+  outside it (no home directory, no sibling projects, no system paths).
+- No internet access. Do not search the web, fetch URLs, or call outside
+  services or connectors (Slack, Google Drive, Docs, artifacts), and do not
+  use Bash network tools (`curl`, `wget`, `ssh`, and the like). Work only from
+  `wiki/`, `extracted/`, and `sources/`. If a task needs something from
+  outside, stop and say so.
 - `.claude/settings.json` backs these rules up. Never loosen it, and never use
   Bash to reach a path it denies.
 
@@ -205,6 +212,7 @@ Use your exact model id, for example `claude-code/claude-opus-5-5`.
 ## Never
 
 - Read anything under `restricted/`.
+- Access the internet or anything outside this project folder.
 - Write, move, or delete anything under `raw/`.
 - Edit manifests in `sources/` unless the person asked you to fix a specific field.
 - Delete wiki pages unless a reviewer names the page; otherwise propose

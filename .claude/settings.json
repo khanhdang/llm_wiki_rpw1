@@ -5,7 +5,28 @@
       "Edit(./raw/**)",
       "Write(./raw/**)",
       "Read(./extracted/restricted/**)",
-      "Read(./sources/restricted/**)"
+      "Read(./sources/restricted/**)",
+
+      "WebSearch",
+      "WebFetch",
+      "Agent(web-fetch)",
+
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(ssh:*)",
+      "Bash(scp:*)",
+      "Bash(sftp:*)",
+      "Bash(rsync:*)",
+      "Bash(nc:*)",
+      "Bash(telnet:*)",
+
+      "mcp__claude_ai_Slack",
+      "mcp__claude_ai_Claude_Docs",
+      "mcp__claude_ai_Google_Drive",
+      "mcp__claude-artifacts",
+      "Artifact",
+      "ArtifactComments",
+      "ArtifactData"
     ]
   }
 }
