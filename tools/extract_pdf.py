@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract the PDFs of a source to extracted/<access>/<id>.md with docling.
+"""Extract the PDFs of a source to extracted/<access>/<id>.md with pypdf.
 
 Finds the source by id through its manifest in sources/ (never by listing
 raw/), checks every file path with wikipaths, runs tools/check_raw.sh, then
@@ -7,9 +7,8 @@ converts each PDF listed under `files:` and writes one markdown file with a
 `<!-- p.N -->` marker before each page. N is the 1-based page of the PDF
 file, not the number printed on the page.
 
-Docling runs offline: HF_HUB_OFFLINE is set, so the layout models must
-already be on this machine. A person downloads them once with
-`docling-tools models download`; this script never does.
+pypdf extracts the text layer only: tables, equations and figures often
+come out garbled, and scanned PDFs with no text layer come out empty.
 
 Refuses to overwrite an existing extracted file unless --force is given.
 
@@ -18,7 +17,6 @@ Usage:
 """
 
 import argparse
-import os
 import sys
 from pathlib import Path
 
@@ -83,27 +81,30 @@ def main():
             print(f"raw/{rel} not found", file=sys.stderr)
             return 1
 
-    os.environ["HF_HUB_OFFLINE"] = "1"
-    os.environ["TRANSFORMERS_OFFLINE"] = "1"
     try:
-        from docling.document_converter import DocumentConverter
+        from pypdf import PdfReader
     except ImportError:
-        print("docling is not installed: pip install docling", file=sys.stderr)
+        print("pypdf is not installed: pip install pypdf", file=sys.stderr)
         return 1
 
-    converter = DocumentConverter()
-    parts = [f"<!-- source: {args.source_id} | extracted with docling -->\n"]
+    parts = [f"<!-- source: {args.source_id} | extracted with pypdf -->\n"]
+    empty = []
     for rel in pdfs:
-        doc = converter.convert(str(wikipaths.RAW_DIR / rel)).document
+        reader = PdfReader(str(wikipaths.RAW_DIR / rel))
         if len(pdfs) > 1:
             parts.append(f"\n<!-- file: {rel} -->\n")
-        for page_no in sorted(doc.pages):
+        for page_no, page in enumerate(reader.pages, start=1):
+            text = (page.extract_text() or "").strip()
+            if not text:
+                empty.append(f"{rel} p.{page_no}")
             parts.append(f"\n<!-- p.{page_no} -->\n\n")
-            parts.append(doc.export_to_markdown(page_no=page_no).strip() + "\n")
+            parts.append(text + "\n")
 
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text("".join(parts), encoding="utf-8")
     print(f"wrote {out.relative_to(REPO)}")
+    if empty:
+        print(f"no text on {len(empty)} page(s), possibly scanned: {', '.join(empty)}", file=sys.stderr)
     print(f"set derived.extracted: extracted/{access}/{args.source_id}.md in {manifest_path.relative_to(REPO)} if missing")
     return 0
 

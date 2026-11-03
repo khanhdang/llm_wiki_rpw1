@@ -8,8 +8,7 @@ writes.
 
 ```bash
 cd llm-wiki
-pip install pyyaml docling
-docling-tools models download   # once; docling then runs offline
+pip install pyyaml pypdf
 ./tools/check_raw.sh
 ```
 
@@ -69,10 +68,10 @@ Claude never writes to `raw/`, so adding sources is a person's job.
    the start of every ingest. Fill in or check `title`, `authors`, `date` and
    `tags`.
 4. Put the plain text at `extracted/open/smith2024-spike-timing-attacks.md`.
-   For PDFs, Claude does this with docling during ingest, or you can run
+   For PDFs, Claude does this with pypdf during ingest, or you can run
    `python tools/extract_pdf.py smith2024-spike-timing-attacks` yourself.
-   Docling runs offline, so once per machine run `pip install docling` and
-   `docling-tools models download`. For other formats, use any tool you like,
+   pypdf reads only the text layer, so check tables and equations, and
+   extract scanned PDFs some other way. For other formats, use any tool you like,
    but mark where each page starts with `<!-- p.4 -->` (or `<!-- 00:12:30 -->`
    for audio and video) so Claude can cite exact locations.
 5. Check it, then ask Claude to ingest it:
