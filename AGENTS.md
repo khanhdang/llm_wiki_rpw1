@@ -58,7 +58,8 @@ llm-wiki/
 └── tools/
     ├── check_raw.sh        # checks raw/ before you touch it
     ├── validate_manifests.py
-    └── lint.py             # run after every change to wiki/
+    ├── lint.py             # run after every change to wiki/
+    └── chat.py             # ask questions of the wiki through a local model server
 ```
 
 ## Data access

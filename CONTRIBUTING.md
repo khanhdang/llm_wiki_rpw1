@@ -55,6 +55,42 @@ between versions, so check the OpenCode docs.
 Smaller models follow long instructions less reliably. Give them one or two
 sources per run and review their pages more carefully.
 
+### Example: oMLX on a Mac
+
+[oMLX](https://github.com/jundot/omlx) serves MLX models on Apple Silicon
+through an OpenAI-compatible API at `http://127.0.0.1:8000/v1`. Start it with
+`omlx start` (or the menu-bar app) and download a model from its dashboard.
+
+To maintain the wiki (ingest, lint), run OpenCode from this folder. The
+committed [opencode.json](opencode.json) sets the default model and permission
+rules that mirror the data-access rules (no `restricted/`, no writes to `raw/`,
+`internal/` and manifest edits ask first). The `omlx` provider and its API key
+live in your global config, which `omlx launch` writes for you:
+
+```bash
+omlx launch opencode --model <model-name>   # once, sets up ~/.config/opencode
+opencode                                    # then, from this folder
+```
+
+If you serve a different model, change `model` in `opencode.json` and add the
+model, with its real context limit, under `provider.omlx.models` in your global
+config.
+
+To ask questions, use the bundled chat tool. It sends the most relevant wiki
+pages and `extracted/open/` passages to the model and answers with citations:
+
+```bash
+python tools/chat.py                                  # interactive
+python tools/chat.py "What is STDP?" --show-context   # list passages sent
+python tools/chat.py "What is STDP?" --save stdp-basics   # keep as a draft page
+```
+
+It reads the API key from `OMLX_API_KEY`, or from `~/.omlx/settings.json` when
+the server is on localhost. Set `OMLX_BASE_URL` and `OMLX_MODEL` to use another
+server or model. `--save` writes `wiki/questions/<name>.md`, adds it to
+`wiki/index.md`, and appends a line to `wiki/log.md`; run `python tools/lint.py`
+afterwards.
+
 ## 3. Day to day
 
 Ask your agent one of:
