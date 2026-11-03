@@ -32,7 +32,9 @@ llm-wiki/
 │   └── questions/          # saved answers to research questions
 └── tools/
     ├── check_raw.sh        # checks raw/ before you touch it
+    ├── scan_raw.py         # finds PDFs in raw/open/ with no manifest; drafts one
     ├── validate_manifests.py
+    ├── extract_pdf.py      # docling: PDF -> extracted/<access>/<id>.md
     └── lint.py             # run after every change to wiki/
 ```
 
@@ -54,7 +56,9 @@ Everything you read is sent to Anthropic.
 - `raw/` is read-only. Never create, move, rename, or delete anything in it.
 - Never search `raw/` recursively (`find`, `ls -R`, `grep -r`, `**` globs); that
   would reach `raw/restricted/`. Use the manifests in `sources/` as the index and
-  open files by their exact path.
+  open files by their exact path. The one exception is `tools/scan_raw.py`,
+  which walks only `raw/open/` (and `raw/internal/` with `--include-internal`)
+  to find PDFs that have no manifest yet.
 - Before opening any raw file, run `tools/check_raw.sh`. If it fails, stop and
   report the problem.
 - Prefer `extracted/` to raw files. Open a raw file only to check a figure,
@@ -149,13 +153,42 @@ page, as asked (see [Review](#review)).
 
 ## Workflows
 
+### Extract
+
+Extract PDFs with docling, only through `tools/extract_pdf.py`:
+
+```bash
+python tools/extract_pdf.py <source-id>            # add --include-internal only if approved
+```
+
+- The source needs a manifest first; the script finds the PDFs from its
+  `files:` list, never by listing `raw/`. It runs `tools/check_raw.sh` itself.
+- It writes `extracted/<access>/<id>.md` with a `<!-- p.N -->` marker per page,
+  where N is the page of the PDF file. Do not run `docling` directly or
+  hand-write page markers.
+- Docling runs offline. If it fails because models are missing, stop and ask
+  the person to run `docling-tools models download`; never download them
+  yourself. If docling is not installed, stop and say so.
+- Never overwrite an existing extracted file (`--force`) unless the person
+  asks; someone may have corrected it by hand.
+- After extracting, spot-check a few pages against the PDF for garbled tables
+  and equations, and list any you find in your report. If the manifest has no
+  `derived.extracted`, tell the person to add it.
+
 ### Ingest (the default task)
 
+0. Run `python tools/scan_raw.py` (add `--include-internal` only if approved).
+   If it lists PDFs with no manifest, run it again with `--write-manifests`,
+   then fill each draft's `title`, `authors`, `date` and `tags` from the
+   extracted text, and run `python tools/validate_manifests.py --check-files`.
+   Report any `problems:` lines (for example a PDF not in its own id folder)
+   to the person; do not move files in `raw/`.
 1. List the sources to do: those named by the person, or else every manifest in
    `sources/open/` (and `sources/internal/` if approved) whose id has no line in
    `wiki/log.md`. Do at most 10 per run.
-2. For each source, read `extracted/<access>/<id>.md` and its manifest, then
-   write or update `wiki/papers/<id>.md`.
+2. For each source, if `extracted/<access>/<id>.md` is missing and the source
+   is a PDF, extract it (see [Extract](#extract)). Then read the extracted
+   text and its manifest, and write or update `wiki/papers/<id>.md`.
 3. Update or create every concept, method, hardware, project, and person page the
    source contributes to.
 4. Add links in both directions between every page you touched, and add new

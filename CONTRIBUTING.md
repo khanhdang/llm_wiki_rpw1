@@ -8,7 +8,8 @@ writes.
 
 ```bash
 cd llm-wiki
-pip install pyyaml
+pip install pyyaml docling
+docling-tools models download   # once; docling then runs offline
 ./tools/check_raw.sh
 ```
 
@@ -61,12 +62,18 @@ Claude never writes to `raw/`, so adding sources is a person's job.
    ```
 
    All fields are described in `tools/manifest_schema.yaml`. File paths are
-   relative to `raw/`. You can ask Claude to draft the manifest for an `open/`
-   file; check the hashes yourself.
+   relative to `raw/`. Or skip this step: `python tools/scan_raw.py
+   --write-manifests` finds PDFs in `raw/open/` with no manifest and drafts
+   one per source folder (path, sha256, size filled in), and Claude runs it at
+   the start of every ingest. Fill in or check `title`, `authors`, `date` and
+   `tags`.
 4. Put the plain text at `extracted/open/smith2024-spike-timing-attacks.md`.
-   Use any extraction tool you like, but mark where each page starts with
-   `<!-- p.4 -->` (or `<!-- 00:12:30 -->` for audio and video) so Claude can
-   cite exact locations.
+   For PDFs, Claude does this with docling during ingest, or you can run
+   `python tools/extract_pdf.py smith2024-spike-timing-attacks` yourself.
+   Docling runs offline, so once per machine run `pip install docling` and
+   `docling-tools models download`. For other formats, use any tool you like,
+   but mark where each page starts with `<!-- p.4 -->` (or `<!-- 00:12:30 -->`
+   for audio and video) so Claude can cite exact locations.
 5. Check it, then ask Claude to ingest it:
 
    ```bash
